@@ -11,8 +11,8 @@ export default function LoginScreen() {
   const router = useRouter()
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   })
 
   const fadeAnim = React.useRef(new Animated.Value(0)).current
@@ -42,7 +42,7 @@ export default function LoginScreen() {
 
       const user = warehousemans.find((w: { secretKey: string; name: string }) => w.secretKey === secretKey)
       if (user) {
-        Alert.alert("Succès", `Bienvenue, ${user.name} !`, [{ text: "OK", onPress: () => router.push("/stats-dashboard") }])
+        Alert.alert("Succès", `Bienvenue, ${user.name} !`, [{ text: "OK", onPress: () => router.push("/statistics") }])
       } else {
         Alert.alert("Erreur", "Code secret invalide !")
       }
@@ -58,7 +58,7 @@ export default function LoginScreen() {
 
   return (
     <ImageBackground
-      source={require("../assets/images/warehouse-background.jpg")}
+      source={require("../../assets/images/warehouse-background.jpg")}
       style={styles.backgroundImage}
       resizeMode="cover"
     >

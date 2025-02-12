@@ -38,8 +38,8 @@ export default function DashboardScreen() {
   const router = useRouter()
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   })
 
   const fetchStats = async () => {
@@ -82,7 +82,7 @@ export default function DashboardScreen() {
       style={styles.container}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
     >
-      <Text style={styles.title}>Tableau de Bord</Text>
+      <Text style={styles.title}></Text>
       {error ? (
         <Text style={styles.errorText}>{error}</Text>
       ) : (
