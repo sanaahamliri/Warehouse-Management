@@ -42,7 +42,7 @@ export default function LoginScreen() {
 
       const user = warehousemans.find((w: { secretKey: string; name: string }) => w.secretKey === secretKey)
       if (user) {
-        Alert.alert("Succès", `Bienvenue, ${user.name} !`, [{ text: "OK", onPress: () => router.push("/dashboard") }])
+        Alert.alert("Succès", `Bienvenue, ${user.name} !`, [{ text: "OK", onPress: () => router.push("/stats-dashboard") }])
       } else {
         Alert.alert("Erreur", "Code secret invalide !")
       }
