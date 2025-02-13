@@ -91,36 +91,7 @@
         }
       ]
     },
-    {
-      "id": "962a",
-      "name": "test add",
-      "stock": 65,
-      "category": "azerty",
-      "price": 1000
-    },
-    {
-      "id": "3be6",
-      "name": "",
-      "stock": 0,
-      "category": "",
-      "price": 0
-    },
-    {
-      "id": "36bf",
-      "name": "ghollam",
-      "stock": 55,
-      "category": "gjjc",
-      "price": 10000
-    },
-    {
-      "id": "ec29",
-      "name": "",
-      "type": "",
-      "supplier": "",
-      "initialQuantity": 0,
-      "price": 0,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/6CEF160C-72FC-4F75-802B-4687AE0B96DF.jpg"
-    },
+
     {
       "id": "4579",
       "name": "pc lenovo",

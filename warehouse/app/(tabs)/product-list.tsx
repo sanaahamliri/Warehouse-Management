@@ -66,7 +66,8 @@ export default function ProductListScreen() {
   const handleFilter = useCallback(
     (filterValue: string) => {
       setFilter(filterValue)
-      filterProducts(searchQuery, filterValue)
+      const query = filterValue === "all" ? "" : searchQuery
+      filterProducts(query, filterValue)
     },
     [searchQuery],
   )
