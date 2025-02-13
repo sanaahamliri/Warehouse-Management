@@ -36,7 +36,7 @@ export default function ProductDetailsScreen() {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`http://192.168.9.108:3001/products/${id}`)
+        const response = await fetch(`http://192.168.9.96:3001/products/${id}`)
         const data = await response.json()
         setProduct(data)
       } catch (error) {

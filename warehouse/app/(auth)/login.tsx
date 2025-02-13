@@ -32,7 +32,7 @@ export default function LoginScreen() {
     }
 
     try {
-      const response = await fetch("http://192.168.9.108:3001/warehousemans",
+      const response = await fetch("http://192.168.9.96:3001/warehousemans",
       {
       method:'GET',
       headers: { "Content-Type": "application/json" }
