@@ -93,6 +93,7 @@ export default function ProductListScreen() {
         filtered = filtered.filter((product) => product.type.toLowerCase() === filterValue.toLowerCase())
       }
 
+      setFilteredProducts(filtered)
       sortProducts(filtered, sortOrder)
     },
     [products, sortOrder],
@@ -145,7 +146,6 @@ export default function ProductListScreen() {
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ type: "timing", duration: 500 }}
       >
-        <Text style={styles.title}>Catalogue de Produits</Text>
       </MotiView>
 
       <MotiView
