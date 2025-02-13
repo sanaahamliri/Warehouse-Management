@@ -58,7 +58,10 @@ export default function ProductDetailsScreen() {
   }
 
   const getTotalStock = () => {
-    return product.stocks.reduce((total, stock) => total + stock.quantity, 0)
+    if (!product || !Array.isArray(product.stocks)) {
+      return 0;
+    }
+    return product.stocks.reduce((total, stock) => total + stock.quantity, 0);
   }
 
   return (
@@ -84,13 +87,17 @@ export default function ProductDetailsScreen() {
           <Text style={styles.detailText}>Stock total: {getTotalStock()}</Text>
         </View>
         <Text style={styles.sectionTitle}>Stocks par entrepôt</Text>
-        {product.stocks.map((stock) => (
-          <View key={stock.id} style={styles.stockItem}>
-            <Text style={styles.stockName}>{stock.name}</Text>
-            <Text style={styles.stockQuantity}>{stock.quantity} unités</Text>
-            <Text style={styles.stockCity}>{stock.localisation.city}</Text>
-          </View>
-        ))}
+        {product.stocks && Array.isArray(product.stocks) && product.stocks.length > 0 ? (
+          product.stocks.map((stock) => (
+            <View key={stock.id} style={styles.stockItem}>
+              <Text style={styles.stockName}>{stock.name}</Text>
+              <Text style={styles.stockQuantity}>{stock.quantity} unités</Text>
+              <Text style={styles.stockCity}>{stock.localisation.city}</Text>
+            </View>
+          ))
+        ) : (
+          <Text style={styles.errorText}>Aucun stock disponible.</Text>
+        )}
       </View>
     </ScrollView>
   )
