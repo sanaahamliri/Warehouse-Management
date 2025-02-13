@@ -83,14 +83,16 @@ export default function ProductListScreen() {
     (query: string, filterValue: string) => {
       let filtered = products.filter((product) => {
         const matchesSearch =
-          product.name.toLowerCase().includes(query.toLowerCase()) ||
-          product.type.toLowerCase().includes(query.toLowerCase()) ||
-          product.supplier.toLowerCase().includes(query.toLowerCase())
+          (product.name && product.name.toLowerCase().includes(query.toLowerCase())) ||
+          (product.type && product.type.toLowerCase().includes(query.toLowerCase())) ||
+          (product.supplier && product.supplier.toLowerCase().includes(query.toLowerCase()))
         return matchesSearch
       })
 
       if (filterValue !== "all") {
-        filtered = filtered.filter((product) => product.type.toLowerCase() === filterValue.toLowerCase())
+        filtered = filtered.filter((product) => 
+          product.type && product.type.toLowerCase() === filterValue.toLowerCase()
+        )
       }
 
       setFilteredProducts(filtered)
