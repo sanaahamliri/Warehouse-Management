@@ -13,7 +13,7 @@ export default function ProductFormScreen() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://192.168.9.108:3001/products", {
+      const response = await fetch("http://192.168.9.96:3001/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, stock: Number(stock), category, price: Number(price) }),

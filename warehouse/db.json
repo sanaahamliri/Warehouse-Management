@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Laptop HP Pavilion",
       "type": "Informatique",
       "barcode": "1234567890123",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Clavier Mécanique Logitech",
       "type": "Accessoires",
       "barcode": "9876543210987",
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Pc Gamer Omen By HP",
       "type": "Informatique",
       "barcode": "1236543210987",
@@ -90,19 +90,40 @@
           "at": "2025-02-02"
         }
       ]
+    },
+    {
+      "id": "962a",
+      "name": "test add",
+      "stock": 65,
+      "category": "azerty",
+      "price": 1000
+    },
+    {
+      "id": "3be6",
+      "name": "",
+      "stock": 0,
+      "category": "",
+      "price": 0
+    },
+    {
+      "id": "36bf",
+      "name": "ghollam",
+      "stock": 55,
+      "category": "gjjc",
+      "price": 10000
     }
   ],
   "warehousemans": [
     {
-      "id": 1333,
+      "id": "1333",
       "name": "Amine Boutaleb",
       "dob": "1988-05-02",
       "city": "Oujda",
-      "secretKey": "AH90907J",
+      "secretKey": "0",
       "warehouseId": 1999
     },
     {
-      "id": 1444,
+      "id": "1444",
       "name": "Karim El Mansouri",
       "dob": "1990-09-15",
       "city": "Marrakesh",
