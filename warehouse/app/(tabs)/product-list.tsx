@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, Image, TextInput } from "react-native"
-import { Picker } from '@react-native-picker/picker';
 import { useRouter } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
+import { MotiView } from "moti"
 
 type Stock = {
   id: number
@@ -48,57 +48,91 @@ export default function ProductListScreen() {
     fetchProducts()
   }, [])
 
-  const getTotalStock = (stocks: Stock[]) => {
+  const getTotalStock = useCallback((stocks: Stock[]) => {
     if (!Array.isArray(stocks)) {
-      return 0;
+      return 0
     }
-    return stocks.reduce((total, stock) => total + stock.quantity, 0);
-  }
+    return stocks.reduce((total, stock) => total + stock.quantity, 0)
+  }, [])
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    filterProducts(query, filter)
-  }
+  const handleSearch = useCallback(
+    (query: string) => {
+      setSearchQuery(query)
+      filterProducts(query, filter)
+    },
+    [filter],
+  )
 
-  const handleFilter = (filterValue: string) => {
-    setFilter(filterValue)
-    filterProducts(searchQuery, filterValue)
-  }
+  const handleFilter = useCallback(
+    (filterValue: string) => {
+      setFilter(filterValue)
+      filterProducts(searchQuery, filterValue)
+    },
+    [searchQuery],
+  )
 
-  const handleSort = (sortValue: string) => {
-    setSortOrder(sortValue)
-    sortProducts(filteredProducts, sortValue)
-  }
+  const handleSort = useCallback(
+    (sortValue: string) => {
+      setSortOrder(sortValue)
+      sortProducts(filteredProducts, sortValue)
+    },
+    [filteredProducts],
+  )
 
-  const filterProducts = (query: string, filter: string) => {
-    let filtered = products.filter((product) => {
-      const matchesSearch =
-        product.name.toLowerCase().includes(query.toLowerCase()) ||
-        product.type.toLowerCase().includes(query.toLowerCase()) ||
-        product.supplier.toLowerCase().includes(query.toLowerCase())
-      return matchesSearch
-    })
+  const filterProducts = useCallback(
+    (query: string, filterValue: string) => {
+      let filtered = products.filter((product) => {
+        const matchesSearch =
+          product.name.toLowerCase().includes(query.toLowerCase()) ||
+          product.type.toLowerCase().includes(query.toLowerCase()) ||
+          product.supplier.toLowerCase().includes(query.toLowerCase())
+        return matchesSearch
+      })
 
-    if (filter !== "all") {
-      filtered = filtered.filter((product) => product.type === filter)
-    }
+      if (filterValue !== "all") {
+        filtered = filtered.filter((product) => product.type.toLowerCase() === filterValue.toLowerCase())
+      }
 
-    sortProducts(filtered, sortOrder)
-  }
+      sortProducts(filtered, sortOrder)
+    },
+    [products, sortOrder],
+  )
 
-  const sortProducts = (products: Product[], sortOrder: string) => {
-    let sorted = [...products]
-    if (sortOrder === "price_asc") {
-      sorted = sorted.sort((a, b) => a.price - b.price)
-    } else if (sortOrder === "price_desc") {
-      sorted = sorted.sort((a, b) => b.price - a.price)
-    } else if (sortOrder === "name") {
-      sorted = sorted.sort((a, b) => a.name.localeCompare(b.name))
-    } else if (sortOrder === "quantity") {
-      sorted = sorted.sort((a, b) => getTotalStock(b.stocks) - getTotalStock(a.stocks))
-    }
-    setFilteredProducts(sorted)
-  }
+  const sortProducts = useCallback(
+    (productsToSort: Product[], sortOrder: string) => {
+      let sorted = [...productsToSort]
+      if (sortOrder === "price_asc") {
+        sorted = sorted.sort((a, b) => a.price - b.price)
+      } else if (sortOrder === "price_desc") {
+        sorted = sorted.sort((a, b) => b.price - a.price)
+      } else if (sortOrder === "name") {
+        sorted = sorted.sort((a, b) => a.name.localeCompare(b.name))
+      } else if (sortOrder === "quantity") {
+        sorted = sorted.sort((a, b) => getTotalStock(b.stocks) - getTotalStock(a.stocks))
+      }
+      setFilteredProducts(sorted)
+    },
+    [getTotalStock],
+  )
+
+  const renderItem = useCallback(
+    ({ item }: { item: Product }) => (
+      <TouchableOpacity
+        style={styles.productItem}
+        onPress={() => router.push({ pathname: "/(products)/product-details", params: { id: item.id } })}
+      >
+        <Image source={{ uri: item.image }} style={styles.productImage} />
+        <View style={styles.productInfo}>
+          <Text style={styles.productName}>{item.name}</Text>
+          <Text style={styles.productType}>{item.type}</Text>
+          <Text style={styles.productPrice}>{item.price.toLocaleString()} MAD</Text>
+          <Text style={styles.productStock}>En stock: {getTotalStock(item.stocks)}</Text>
+        </View>
+        <Ionicons name="chevron-forward" size={24} color="#6200ee" />
+      </TouchableOpacity>
+    ),
+    [router, getTotalStock],
+  )
 
   if (loading) {
     return <ActivityIndicator size="large" color="#6200ee" style={styles.loader} />
@@ -106,64 +140,72 @@ export default function ProductListScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Catalogue de Produits</Text>
+      <MotiView
+        from={{ opacity: 0, translateY: -50 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ type: "timing", duration: 500 }}
+      >
+        <Text style={styles.title}>Catalogue de Produits</Text>
+      </MotiView>
 
-      <TouchableOpacity style={styles.addButton} onPress={() => router.push("/(products)/product-form")}>
-        <Ionicons name="add-circle-outline" size={24} color="#fff" />
-        <Text style={styles.addButtonText}>Ajouter un produit</Text>
-      </TouchableOpacity>
+      <MotiView
+        from={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", delay: 300 }}
+      >
+        <TouchableOpacity style={styles.addButton} onPress={() => router.push("/(products)/product-form")}>
+          <Ionicons name="add-circle-outline" size={24} color="#fff" />
+          <Text style={styles.addButtonText}>Ajouter un produit</Text>
+        </TouchableOpacity>
+      </MotiView>
 
-      <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Rechercher..."
-          value={searchQuery}
-          onChangeText={handleSearch}
-        />
-      </View>
+      <MotiView
+        from={{ opacity: 0, translateX: -50 }}
+        animate={{ opacity: 1, translateX: 0 }}
+        transition={{ type: "timing", duration: 500, delay: 200 }}
+      >
+        <View style={styles.searchContainer}>
+          <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Rechercher..."
+            value={searchQuery}
+            onChangeText={handleSearch}
+          />
+        </View>
+      </MotiView>
 
-      <View style={styles.filterSortContainer}>
-        <Picker
-          selectedValue={filter}
-          style={styles.picker}
-          onValueChange={(itemValue) => handleFilter(itemValue)}
-        >
-          <Picker.Item label="Tous" value="all" />
-          <Picker.Item label="Électronique" value="electronic" />
-          <Picker.Item label="Vêtements" value="clothing" />
-        </Picker>
-
-        <Picker
-          selectedValue={sortOrder}
-          style={styles.picker}
-          onValueChange={(itemValue) => handleSort(itemValue)}
-        >
-          <Picker.Item label="Nom" value="name" />
-          <Picker.Item label="Prix croissant" value="price_asc" />
-          <Picker.Item label="Prix décroissant" value="price_desc" />
-          <Picker.Item label="Stock disponible" value="quantity" />
-        </Picker>
-      </View>
+      <MotiView
+        from={{ opacity: 0, translateX: 50 }}
+        animate={{ opacity: 1, translateX: 0 }}
+        transition={{ type: "timing", duration: 500, delay: 400 }}
+      >
+        <View style={styles.filterSortContainer}>
+          <TouchableOpacity
+            style={[styles.tag, filter === "all" && styles.activeTag]}
+            onPress={() => handleFilter("all")}
+          >
+            <Text style={[styles.tagText, filter === "all" && styles.activeTagText]}>Tous</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tag} onPress={() => handleSort("name")}>
+            <Text style={styles.tagText}>Nom</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tag} onPress={() => handleSort("price_asc")}>
+            <Text style={styles.tagText}>Prix ↑</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tag} onPress={() => handleSort("price_desc")}>
+            <Text style={styles.tagText}>Prix ↓</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tag} onPress={() => handleSort("quantity")}>
+            <Text style={styles.tagText}>Quantité</Text>
+          </TouchableOpacity>
+        </View>
+      </MotiView>
 
       <FlatList
         data={filteredProducts}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.productItem}
-            onPress={() => router.push({ pathname: "/(products)/product-details", params: { id: item.id } })}
-          >
-            <Image source={{ uri: item.image }} style={styles.productImage} />
-            <View style={styles.productInfo}>
-              <Text style={styles.productName}>{item.name}</Text>
-              <Text style={styles.productType}>{item.type}</Text>
-              <Text style={styles.productPrice}>{item.price.toLocaleString()} MAD</Text>
-              <Text style={styles.productStock}>En stock: {getTotalStock(item.stocks)}</Text>
-            </View>
-            <Ionicons name="chevron-forward" size={24} color="#6200ee" />
-          </TouchableOpacity>
-        )}
+        renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </View>
@@ -180,77 +222,125 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#6200ee",
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 10,
+    padding: 12,
+    borderRadius: 25,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   addButtonText: {
     color: "#fff",
     marginLeft: 10,
     fontWeight: "bold",
+    fontSize: 16,
   },
   loader: {
-    marginTop: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 16,
+    color: "#333",
+    textAlign: "center",
   },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 16,
+    backgroundColor: "#fff",
+    borderRadius: 25,
+    paddingHorizontal: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   searchInput: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    padding: 8,
-    marginLeft: 8,
+    padding: 12,
+    fontSize: 16,
   },
   filterSortContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  picker: {
-    flex: 1,
-    marginHorizontal: 5,
+    marginBottom: 16,
+    flexWrap: "wrap",
   },
   productItem: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+    padding: 16,
     backgroundColor: "#fff",
+    borderRadius: 12,
+    marginBottom: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   productImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
-    marginRight: 10,
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 16,
   },
   productInfo: {
     flex: 1,
   },
   productName: {
     fontWeight: "bold",
+    fontSize: 18,
+    marginBottom: 4,
+    color: "#333",
   },
   productType: {
     color: "#666",
+    fontSize: 14,
+    marginBottom: 4,
   },
   productPrice: {
     color: "#6200ee",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
   },
   productStock: {
     color: "#666",
+    fontSize: 14,
   },
   separator: {
     height: 1,
-    backgroundColor: "#ccc",
+    backgroundColor: "#e0e0e0",
+    marginVertical: 8,
   },
   searchIcon: {
     marginRight: 8,
   },
+  tag: {
+    padding: 8,
+    borderWidth: 1,
+    borderColor: "#6200ee",
+    borderRadius: 20,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  tagText: {
+    fontWeight: "bold",
+    color: "#6200ee",
+  },
+  activeTag: {
+    backgroundColor: "#6200ee",
+  },
+  activeTagText: {
+    color: "#fff",
+  },
 })
+
