@@ -34,7 +34,7 @@ export default function ProductListScreen() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://192.168.9.96:3001/products")
+        const response = await fetch("http://192.168.9.68:3001/products")
         const data = await response.json()
         setProducts(data)
         setFilteredProducts(data)
@@ -82,6 +82,7 @@ export default function ProductListScreen() {
 
   const filterProducts = useCallback(
     (query: string, filterValue: string) => {
+      console.log("Filtering products with query:", query, "and filterValue:", filterValue);
       let filtered = products.filter((product) => {
         const matchesSearch =
           (product.name && product.name.toLowerCase().includes(query.toLowerCase())) ||
@@ -89,6 +90,7 @@ export default function ProductListScreen() {
           (product.supplier && product.supplier.toLowerCase().includes(query.toLowerCase()))
         return matchesSearch
       })
+
 
       if (filterValue !== "all") {
         filtered = filtered.filter((product) => 
