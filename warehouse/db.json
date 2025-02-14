@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Laptop HP Pavilion",
       "type": "Informatique",
       "barcode": "1234567890123",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Clavier Mécanique Logitech",
       "type": "Accessoires",
       "barcode": "9876543210987",
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Pc Gamer Omen By HP",
       "type": "Informatique",
       "barcode": "1236543210987",
@@ -90,19 +90,118 @@
           "at": "2025-02-02"
         }
       ]
+    },
+    {
+      "id": "4579",
+      "name": "pc lenovo",
+      "type": "informatiques",
+      "supplier": "sanaa",
+      "initialQuantity": 10,
+      "warehouse": "entrepot",
+      "price": 1000010000,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/76CE2210-A8CC-40A9-8467-DAEFB9BB5B8C.png"
+    },
+    {
+      "id": "11b7",
+      "name": "test",
+      "type": "testtt",
+      "supplier": "testttt",
+      "initialQuantity": 15,
+      "warehouse": "testtt",
+      "price": 100,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/1642D2F4-A77F-4222-B853-AFC0D7AE2304.jpg"
+    },
+    {
+      "id": "c232",
+      "name": "hm",
+      "type": "jfhch",
+      "supplier": "jgwgwkgw",
+      "initialQuantity": 62462,
+      "warehouse": "ktdktd",
+      "price": 654624,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/10735034-085B-42ED-BB58-797C9EABB004.jpg"
+    },
+    {
+      "id": "1776",
+      "name": "oo",
+      "type": "uvhv",
+      "supplier": "chchchc",
+      "initialQuantity": 63,
+      "warehouse": "autre stack ",
+      "price": 2858,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/96BC8347-8BA7-4ECE-A059-F8C33BF2E70D.jpg"
+    },
+    {
+      "id": "648a",
+      "name": "g igcih",
+      "type": "hf uf ",
+      "supplier": "ur f jf",
+      "initialQuantity": 8,
+      "warehouse": "hdxg, itcxh, ohccochc",
+      "price": 577,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/80E32D5A-D231-4C6D-A451-3A7B0A15B8C7.jpg",
+      "stocks": [
+        {
+          "quantity": 8,
+          "warehouse": "hdxg, itcxh, ohccochc"
+        }
+      ]
+    },
+    {
+      "id": "9926",
+      "name": "jfzjtd",
+      "type": "hdzjfzjt",
+      "supplier": "hfzjfzfjz",
+      "price": 85724,
+      "barcode": "hdzrzjztjt",
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/A0D26E95-B0A0-40E7-B3CF-1985E4CA3CF2.jpg",
+      "stocks": [
+        {
+          "name": "stock1",
+          "quantity": "25",
+          "city": "safi",
+          "latitude": "fjtxt",
+          "longitude": "ycucucuvhv"
+        }
+      ]
+    },
+    {
+      "id": "e507",
+      "name": "kg kg kgx",
+      "type": "kg ig",
+      "supplier": "xxgxgxg",
+      "price": 828585,
+      "image": null,
+      "barcode": "https://ain-saiss.ma/accueil",
+      "stocks": [
+        {
+          "name": "stock 1",
+          "quantity": "58",
+          "city": "safi",
+          "latitude": "6346",
+          "longitude": "1614"
+        },
+        {
+          "name": "stock 2",
+          "quantity": "12",
+          "city": "Kesh",
+          "latitude": "gajah",
+          "longitude": "fqjqv"
+        }
+      ]
     }
   ],
   "warehousemans": [
     {
-      "id": 1333,
+      "id": "1333",
       "name": "Amine Boutaleb",
       "dob": "1988-05-02",
       "city": "Oujda",
-      "secretKey": "AH90907J",
+      "secretKey": "0",
       "warehouseId": 1999
     },
     {
-      "id": 1444,
+      "id": "1444",
       "name": "Karim El Mansouri",
       "dob": "1990-09-15",
       "city": "Marrakesh",
