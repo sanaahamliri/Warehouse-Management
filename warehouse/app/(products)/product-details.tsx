@@ -4,16 +4,15 @@ import { useEffect, useState } from "react"
 import { View, Text, ActivityIndicator, StyleSheet, Image, ScrollView } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
+import { fetchProductById } from '../services/productService'
 
 type Stock = {
   id: number
   name: string
   quantity: number
-  localisation: {
-    city: string
-    latitude: number
-    longitude: number
-  }
+  city: string
+  latitude: string
+  longitude: string
 }
 
 type Product = {
@@ -36,8 +35,7 @@ export default function ProductDetailsScreen() {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`http://192.168.9.96:3001/products/${id}`)
-        const data = await response.json()
+        const data = await fetchProductById(id as string)
         setProduct(data)
       } catch (error) {
         console.error("Erreur lors du chargement du produit :", error)
@@ -88,11 +86,13 @@ export default function ProductDetailsScreen() {
         </View>
         <Text style={styles.sectionTitle}>Stocks par entrepôt</Text>
         {product.stocks && Array.isArray(product.stocks) && product.stocks.length > 0 ? (
-          product.stocks.map((stock) => (
-            <View key={stock.id} style={styles.stockItem}>
+          product.stocks.map((stock, index) => (
+            <View key={index} style={styles.stockItem}>
               <Text style={styles.stockName}>{stock.name}</Text>
               <Text style={styles.stockQuantity}>{stock.quantity} unités</Text>
-              <Text style={styles.stockCity}>{stock.localisation.city}</Text>
+              <Text style={styles.stockCity}>Ville: {stock.city}</Text>
+              <Text style={styles.stockLatitude}>Latitude: {stock.latitude}</Text>
+              <Text style={styles.stockLongitude}>Longitude: {stock.longitude}</Text>
             </View>
           ))
         ) : (
@@ -187,6 +187,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   stockCity: {
+    fontSize: 14,
+    color: "#666",
+  },
+  stockLatitude: {
+    fontSize: 14,
+    color: "#666",
+  },
+  stockLongitude: {
     fontSize: 14,
     color: "#666",
   },
