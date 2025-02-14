@@ -44,7 +44,7 @@ export default function DashboardScreen() {
 
   const fetchStats = async () => {
     try {
-      const res = await fetch("http://192.168.9.68/statistics")
+      const res = await fetch("http://192.168.9.108/statistics")
       if (!res.ok) {
         throw new Error("Erreur réseau")
       }

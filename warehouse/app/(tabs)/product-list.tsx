@@ -5,6 +5,7 @@ import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, 
 import { useRouter } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { MotiView } from "moti"
+import ProductFormScreen from "../(products)/product-form"
 
 type Stock = {
   id: number
@@ -31,10 +32,15 @@ export default function ProductListScreen() {
   const [sortOrder, setSortOrder] = useState("name")
   const router = useRouter()
 
+  const handleProductAdded = (newProduct: Product) => {
+    setProducts((prevProducts) => [newProduct, ...prevProducts])
+    setFilteredProducts((prevFiltered) => [newProduct, ...prevFiltered])
+  }
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://192.168.9.68:3001/products")
+        const response = await fetch("http://192.168.9.108:3001/products")
         const data = await response.json()
         setProducts(data)
         setFilteredProducts(data)
@@ -47,6 +53,10 @@ export default function ProductListScreen() {
 
     fetchProducts()
   }, [])
+
+  useEffect(() => {
+    setFilteredProducts(products)
+  }, [products])
 
   const getTotalStock = useCallback((stocks: Stock[]) => {
     if (!Array.isArray(stocks)) {
@@ -131,7 +141,9 @@ export default function ProductListScreen() {
         <View style={styles.productInfo}>
           <Text style={styles.productName}>{item.name}</Text>
           <Text style={styles.productType}>{item.type}</Text>
-          <Text style={styles.productPrice}>{item.price.toLocaleString()} MAD</Text>
+          <Text style={styles.productPrice}>
+            {item.price != null ? item.price.toLocaleString() : 'N/A'} MAD
+          </Text>
           <Text style={styles.productStock}>En stock: {getTotalStock(item.stocks)}</Text>
         </View>
         <Ionicons name="chevron-forward" size={24} color="#6200ee" />
