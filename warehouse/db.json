@@ -189,6 +189,42 @@
           "longitude": "fqjqv"
         }
       ]
+    },
+    {
+      "id": "b034",
+      "name": "jfwkgwkg",
+      "type": "jrurwitw",
+      "supplier": "ktwktwgkw",
+      "price": null,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/F1A9B126-9CA9-44B6-83DF-B6197E8C8D66.jpg",
+      "barcode": "jfwkgwkgwktwgkw",
+      "stocks": [
+        {
+          "name": "jfwtw",
+          "quantity": "3567",
+          "city": "Safi",
+          "latitude": "kgxtw",
+          "longitude": "jfwggwkgx"
+        }
+      ]
+    },
+    {
+      "id": "ac0b",
+      "name": "jfwkgwkg",
+      "type": "jrurwitw",
+      "supplier": "ktwktwgkw",
+      "price": null,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/F1A9B126-9CA9-44B6-83DF-B6197E8C8D66.jpg",
+      "barcode": "jfwkgwkgwktwgkw",
+      "stocks": [
+        {
+          "name": "jfwtw",
+          "quantity": "3567",
+          "city": "Safi",
+          "latitude": "kgxtw",
+          "longitude": "jfwggwkgx"
+        }
+      ]
     }
   ],
   "warehousemans": [

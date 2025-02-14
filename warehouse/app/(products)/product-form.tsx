@@ -56,9 +56,10 @@ export default function ProductFormScreen() {
         return
       }
 
+      const priceValue = productData.price ? Number(productData.price) : 0;
       const productToSubmit = { 
         ...productData,
-        price: Number(productData.price), 
+        price: priceValue, 
         image: productData.image || null,
       }
 
