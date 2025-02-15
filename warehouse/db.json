@@ -13,7 +13,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 16,
+          "quantity": 12,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -23,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 9,
+          "quantity": -1,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -88,7 +88,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 19,
+          "quantity": 18,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -98,7 +98,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 19,
+          "quantity": 15,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -110,6 +110,50 @@
         {
           "warehousemanId": 1444,
           "at": "2025-02-02"
+        }
+      ]
+    },
+    {
+      "id": "3131",
+      "name": "test",
+      "type": "bsbd",
+      "supplier": "bdb",
+      "price": 87,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/4BA5191E-A363-43C7-86CF-19D4625E7D32.jpg",
+      "barcode": "bdb",
+      "stocks": [
+        {
+          "name": "s1",
+          "quantity": 14,
+          "city": "bs",
+          "latitude": "db",
+          "longitude": "bw"
+        },
+        {
+          "name": "s2",
+          "quantity": 29,
+          "city": "bd",
+          "latitude": "db",
+          "longitude": "jdj"
+        }
+      ]
+    },
+    {
+      "id": "4879",
+      "name": "csj ",
+      "type": "bsj ",
+      "supplier": "bsj",
+      "price": 845,
+      "image": null,
+      "barcode": " wj",
+      "stocks": [
+        {
+          "id": "d19f45a5-957e-4a88-9080-4690c79db5d0",
+          "name": "",
+          "quantity": "",
+          "city": "",
+          "latitude": "",
+          "longitude": ""
         }
       ]
     }

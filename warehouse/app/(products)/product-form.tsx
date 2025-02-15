@@ -1,28 +1,28 @@
-"use client"
-
-import React, { useState } from "react"
-import { View, Text, TextInput, StyleSheet, Alert, Image, TouchableOpacity, ScrollView } from "react-native"
-import { useRouter } from "expo-router"
-import * as ImagePicker from "expo-image-picker"
-import { addProduct } from '../services/productService'
-import Scanner from "../hooks/camera/Scanner"
+import React, { useState } from "react";
+import { View, Text, TextInput, StyleSheet, Alert, Image, TouchableOpacity, ScrollView } from "react-native";
+import { useRouter } from "expo-router";
+import * as ImagePicker from "expo-image-picker";
+import { addProduct, fetchProducts } from '../services/productService';
+import Scanner from "../hooks/camera/Scanner";
+import UUID from 'react-native-uuid'; 
 
 interface Stock {
-  name: string
-  quantity: string
-  city: string
-  latitude: string
-  longitude: string
+  id: string;
+  name: string;
+  quantity: string;
+  city: string;
+  latitude: string;
+  longitude: string;
 }
 
 interface ProductData {
-  name: string
-  type: string
-  supplier: string
-  price: string
-  image: string
-  barcode?: string
-  stocks: Stock[]
+  name: string;
+  type: string;
+  supplier: string;
+  price: string;
+  image: string;
+  barcode?: string;
+  stocks: Stock[];
 }
 
 export default function ProductFormScreen() {
@@ -33,42 +33,52 @@ export default function ProductFormScreen() {
     price: '',
     image: '',
     barcode: '',
-    stocks: [{ name: '', quantity: '', city: '', latitude: '', longitude: '' }],
-  })
-  const [showStockForm, setShowStockForm] = useState(false)
-  const router = useRouter()
-  const [isScannerVisible, setIsScannerVisible] = useState(false)
+    stocks: [{ id:  UUID.v4(), name: '', quantity: '', city: '', latitude: '', longitude: '' }],
+  });
+  const [showStockForm, setShowStockForm] = useState(false);
+  const router = useRouter();
+  const [isScannerVisible, setIsScannerVisible] = useState(false);
 
   const handleStockChange = (index: number, field: string, value: string) => {
-    const updatedStocks = [...productData.stocks]
-    updatedStocks[index] = { ...updatedStocks[index], [field]: value }
-    setProductData({ ...productData, stocks: updatedStocks })
-  }
+    const updatedStocks = [...productData.stocks];
+    updatedStocks[index] = {
+      ...updatedStocks[index],
+      [field]: field === "quantity" ? (parseInt(value, 10) || 0) : value,
+    };
+    setProductData({ ...productData, stocks: updatedStocks });
+  };
 
   const handleInputChange = (field: string, value: string) => {
-    setProductData({ ...productData, [field]: value })
-  }
+    setProductData({ ...productData, [field]: value });
+  };
 
   const handleSubmit = async () => {
     try {
       if (!productData.name || !productData.price || !productData.barcode) {
-        Alert.alert('Erreur', 'Veuillez remplir tous les champs obligatoires')
-        return
+        Alert.alert('Erreur', 'Veuillez remplir tous les champs obligatoires');
+        return;
       }
 
       const priceValue = productData.price ? Number(productData.price) : 0;
-      const productToSubmit = { 
-        ...productData,
-        price: priceValue, 
-        image: productData.image || null,
-      }
 
-      await addProduct(productToSubmit)
-      Alert.alert("Succès", "Produit ajouté avec succès", [{ text: "OK", onPress: () => router.back() }])
+      const updatedStocks = productData.stocks.map(stock => ({
+        ...stock,
+        id: stock.id || UUID.v4(),
+      }));
+
+      const productToSubmit = {
+        ...productData,
+        price: priceValue,
+        image: productData.image || null,
+        stocks: updatedStocks,
+      };
+
+      await addProduct(productToSubmit);
+      Alert.alert("Succès", "Produit ajouté avec succès", [{ text: "OK", onPress: () => router.push("/(tabs)/product-list") }]);
     } catch (error) {
-      Alert.alert("Erreur", "Impossible d'ajouter le produit.")
+      Alert.alert("Erreur", "Impossible d'ajouter le produit.");
     }
-  }
+  };
 
   const handleImagePick = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -76,17 +86,17 @@ export default function ProductFormScreen() {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
-    })
+    });
 
     if (!result.canceled) {
-      setProductData({ ...productData, image: result.assets[0].uri })
+      setProductData({ ...productData, image: result.assets[0].uri });
     }
-  }
+  };
 
   const handleScan = (barcode: string) => {
-    handleInputChange('barcode', barcode)
-    setIsScannerVisible(false)
-  }
+    handleInputChange('barcode', barcode);
+    setIsScannerVisible(false);
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -126,7 +136,7 @@ export default function ProductFormScreen() {
       </View>
 
       {showStockForm && productData.stocks.map((stock, index) => (
-        <View key={index} style={styles.stockContainer}>
+        <View key={stock.id} style={styles.stockContainer}>
           <Text style={styles.stockTitle}>Stock {index + 1}</Text>
           <TextInput
             style={styles.input}
@@ -173,8 +183,18 @@ export default function ProductFormScreen() {
           onPress={() => {
             setProductData({
               ...productData,
-              stocks: [...productData.stocks, { name: "", quantity: "", city: "", latitude: "", longitude: "" }],
-            })
+              stocks: [
+                ...productData.stocks,
+                {
+                  id:  UUID.v4(),
+                  name: "",
+                  quantity: "",
+                  city: "",
+                  latitude: "",
+                  longitude: "",
+                },
+              ],
+            });
           }}
         >
           <Text style={styles.addButtonText}>Ajouter un autre stock</Text>
@@ -189,7 +209,7 @@ export default function ProductFormScreen() {
         <Text style={styles.buttonText}>Ajouter</Text>
       </TouchableOpacity>
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -255,15 +275,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   toggleButton: {
-    padding: 5,
+    padding: 10,
+    borderRadius: 8,
+    backgroundColor: "#ffeb3b",
   },
   toggleButtonText: {
-    fontSize: 18,
     fontWeight: "bold",
+    fontSize: 20,
   },
   stockTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
   },
-})
+});
+

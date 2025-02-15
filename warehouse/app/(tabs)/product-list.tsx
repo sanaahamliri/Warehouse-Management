@@ -1,8 +1,6 @@
-"use client"
-
 import { useEffect, useState, useCallback } from "react"
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, StyleSheet, Image, TextInput } from "react-native"
-import { useRouter } from "expo-router"
+import { useFocusEffect, useRouter } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { MotiView } from "moti"
 import ProductFormScreen from "../(products)/product-form"
@@ -38,22 +36,25 @@ export default function ProductListScreen() {
     setFilteredProducts((prevFiltered) => [newProduct, ...prevFiltered])
   }
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("http://192.168.9.108:3001/products")
-        const data = await response.json()
-        setProducts(data)
-        setFilteredProducts(data)
-      } catch (error) {
-        console.error("Erreur lors du chargement des produits :", error)
-      } finally {
-        setLoading(false)
-      }
+  const fetchProducts = useCallback(async () => {
+    try {
+      setLoading(true)
+      const response = await fetch("http://192.168.9.108:3001/products")
+      const data = await response.json()
+      setProducts(data)
+      setFilteredProducts(data)
+    } catch (error) {
+      console.error("Erreur lors du chargement des produits :", error)
+    } finally {
+      setLoading(false)
     }
-
-    fetchProducts()
   }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchProducts()
+    }, [])
+  )
 
   useEffect(() => {
     setFilteredProducts(products)
@@ -66,42 +67,26 @@ export default function ProductListScreen() {
     return stocks.reduce((total, stock) => total + stock.quantity, 0)
   }, [])
 
-  const handleSearch = useCallback(
-    (query: string) => {
-      setSearchQuery(query)
-      filterProducts(query, filter)
-    },
-    [filter],
-  )
-
-  const handleFilter = useCallback(
-    (filterValue: string) => {
-      setFilter(filterValue)
-      const query = filterValue === "all" ? "" : searchQuery
-      filterProducts(query, filterValue)
-    },
-    [searchQuery],
-  )
-
-  const handleSort = useCallback(
-    (sortValue: string) => {
-      setSortOrder(sortValue)
-      sortProducts(filteredProducts, sortValue)
-    },
-    [filteredProducts],
-  )
-
   const filterProducts = useCallback(
     (query: string, filterValue: string) => {
-      console.log("Filtering products with query:", query, "and filterValue:", filterValue);
-      let filtered = products.filter((product) => {
-        const matchesSearch =
-          (product.name && product.name.toLowerCase().includes(query.toLowerCase())) ||
-          (product.type && product.type.toLowerCase().includes(query.toLowerCase())) ||
-          (product.supplier && product.supplier.toLowerCase().includes(query.toLowerCase()))
-        return matchesSearch
-      })
+      console.log("Filtering products with query:", query, "and filterValue:", filterValue)
+      
+      // Start with all products
+      let filtered = [...products]
 
+      // Apply search query if it exists
+      if (query) {
+        filtered = filtered.filter((product) => {
+          const searchLower = query.toLowerCase()
+          return (
+            (product.name && product.name.toLowerCase().includes(searchLower)) ||
+            (product.type && product.type.toLowerCase().includes(searchLower)) ||
+            (product.supplier && product.supplier.toLowerCase().includes(searchLower))
+          )
+        })
+      }
+
+      // Apply type filter if not "all"
       if (filterValue !== "all") {
         filtered = filtered.filter((product) => 
           product.type && product.type.toLowerCase() === filterValue.toLowerCase()
@@ -109,26 +94,59 @@ export default function ProductListScreen() {
       }
 
       setFilteredProducts(filtered)
-      sortProducts(filtered, sortOrder)
+      if (sortOrder) {
+        sortProducts(filtered, sortOrder)
+      }
     },
-    [products, sortOrder],
+    [products, sortOrder]
+  )
+
+  const handleFilter = useCallback(
+    (filterValue: string) => {
+      setFilter(filterValue)
+      filterProducts(searchQuery, filterValue)
+    },
+    [searchQuery, filterProducts]
+  )
+
+  const handleSearch = useCallback(
+    (query: string) => {
+      setSearchQuery(query)
+      filterProducts(query, filter)
+    },
+    [filter, filterProducts]
+  )
+
+  const handleSort = useCallback(
+    (sortValue: string) => {
+      setSortOrder(sortValue)
+      sortProducts(filteredProducts, sortValue)
+    },
+    [filteredProducts]
   )
 
   const sortProducts = useCallback(
     (productsToSort: Product[], sortOrder: string) => {
       let sorted = [...productsToSort]
-      if (sortOrder === "price_asc") {
-        sorted = sorted.sort((a, b) => a.price - b.price)
-      } else if (sortOrder === "price_desc") {
-        sorted = sorted.sort((a, b) => b.price - a.price)
-      } else if (sortOrder === "name") {
-        sorted = sorted.sort((a, b) => a.name.localeCompare(b.name))
-      } else if (sortOrder === "quantity") {
-        sorted = sorted.sort((a, b) => getTotalStock(b.stocks) - getTotalStock(a.stocks))
+      
+      switch(sortOrder) {
+        case "price_asc":
+          sorted.sort((a, b) => a.price - b.price)
+          break
+        case "price_desc":
+          sorted.sort((a, b) => b.price - a.price)
+          break
+        case "name":
+          sorted.sort((a, b) => a.name.localeCompare(b.name))
+          break
+        case "quantity":
+          sorted.sort((a, b) => getTotalStock(b.stocks) - getTotalStock(a.stocks))
+          break
       }
+      
       setFilteredProducts(sorted)
     },
-    [getTotalStock],
+    [getTotalStock]
   )
 
   const renderItem = useCallback(
@@ -149,24 +167,24 @@ export default function ProductListScreen() {
         <Ionicons name="chevron-forward" size={24} color="#6200ee" />
       </TouchableOpacity>
     ),
-    [router, getTotalStock],
+    [router, getTotalStock]
   )
 
   const handleUpdateStock = async (productId: string, stockId: number, quantity: number) => {
     try {
-      const updatedProduct = await updateStock(productId, stockId, quantity);
+      const updatedProduct = await updateStock(productId, stockId, quantity)
       setProducts((prevProducts) => 
         prevProducts.map(product => 
           product.id === Number(productId) ? updatedProduct : product
         )
-      );
+      )
       setFilteredProducts((prevFiltered) => 
         prevFiltered.map(product => 
           product.id === Number(productId) ? updatedProduct : product
         )
-      );
+      )
     } catch (error) {
-      console.error("Erreur lors de la mise à jour du stock :", error);
+      console.error("Erreur lors de la mise à jour du stock :", error)
     }
   }
 
@@ -222,24 +240,36 @@ export default function ProductListScreen() {
           >
             <Text style={[styles.tagText, filter === "all" && styles.activeTagText]}>Tous</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tag} onPress={() => handleSort("name")}>
-            <Text style={styles.tagText}>Nom</Text>
+          <TouchableOpacity 
+            style={[styles.tag, sortOrder === "name" && styles.activeTag]}
+            onPress={() => handleSort("name")}
+          >
+            <Text style={[styles.tagText, sortOrder === "name" && styles.activeTagText]}>Nom</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tag} onPress={() => handleSort("price_asc")}>
-            <Text style={styles.tagText}>Prix ↑</Text>
+          <TouchableOpacity 
+            style={[styles.tag, sortOrder === "price_asc" && styles.activeTag]}
+            onPress={() => handleSort("price_asc")}
+          >
+            <Text style={[styles.tagText, sortOrder === "price_asc" && styles.activeTagText]}>Prix ↑</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tag} onPress={() => handleSort("price_desc")}>
-            <Text style={styles.tagText}>Prix ↓</Text>
+          <TouchableOpacity 
+            style={[styles.tag, sortOrder === "price_desc" && styles.activeTag]}
+            onPress={() => handleSort("price_desc")}
+          >
+            <Text style={[styles.tagText, sortOrder === "price_desc" && styles.activeTagText]}>Prix ↓</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tag} onPress={() => handleSort("quantity")}>
-            <Text style={styles.tagText}>Quantité</Text>
+          <TouchableOpacity 
+            style={[styles.tag, sortOrder === "quantity" && styles.activeTag]}
+            onPress={() => handleSort("quantity")}
+          >
+            <Text style={[styles.tagText, sortOrder === "quantity" && styles.activeTagText]}>Quantité</Text>
           </TouchableOpacity>
         </View>
       </MotiView>
 
       <FlatList
         data={filteredProducts}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item,index) => index.toString()}
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
