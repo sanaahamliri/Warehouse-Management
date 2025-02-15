@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { View, Text, ActivityIndicator, StyleSheet, Image, ScrollView, Button } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
-import { fetchProductById, updateStock } from '../services/productService'
+import { fetchProductById, updateStock, exportProductReport } from '../services/productService'
 
 type Stock = {
   id: number
@@ -90,6 +90,20 @@ export default function ProductDetailsScreen() {
     });
   }
 
+  const handleExportReport = async () => {
+    if (product) {
+      console.log("Exporting report for product:", product);
+      try {
+        await exportProductReport(product);
+        console.log("Report exported successfully.");
+      } catch (error) {
+        console.error("Error exporting report:", error);
+      }
+    } else {
+      console.warn("No product available for export.");
+    }
+  }
+
   return (
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
@@ -136,6 +150,7 @@ export default function ProductDetailsScreen() {
         ) : (
           <Text style={styles.errorText}>Aucun stock disponible.</Text>
         )}
+        <Button title="Exporter le rapport PDF" onPress={handleExportReport} />
       </View>
     </ScrollView>
   )
