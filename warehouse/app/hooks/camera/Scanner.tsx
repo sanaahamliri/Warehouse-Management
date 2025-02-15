@@ -3,8 +3,8 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import useScanner from './useScanner';
 
 interface ScannerProps {
-  onScan: (barcode: string) => void; // Callback for when a barcode is scanned
-  onClose: () => void; // Callback for closing the scanner
+  onScan: (barcode: string) => void;
+  onClose: () => void;
 }
 
 export default function Scanner({ onScan, onClose }: ScannerProps) {
@@ -19,13 +19,13 @@ export default function Scanner({ onScan, onClose }: ScannerProps) {
     } = useScanner();
 
     const handleScan = ({ type, data }: { type: string; data: string }) => {
-        const barcode = handleBarCodeScanned({ type, data }); // Handle the scanned barcode
-        onScan(barcode); // Call the onScan callback with the scanned barcode
-        onClose(); // Close the scanner
+        const barcode = handleBarCodeScanned({ type, data });
+        onScan(barcode);
+        onClose();
     };
 
     if (!permission) {
-        return <View />; // Render nothing if permission is not requested
+        return <View />;
     }
 
     if (!permission.granted) {
@@ -42,7 +42,7 @@ export default function Scanner({ onScan, onClose }: ScannerProps) {
             <CameraView 
                 style={styles.camera} 
                 facing={facing} 
-                onBarcodeScanned={scanned ? undefined : handleScan} // Handle barcode scanning
+                onBarcodeScanned={scanned ? undefined : handleScan}
             >
                 <View style={styles.overlay}>
                     <TouchableOpacity style={styles.closeButton} onPress={onClose}>

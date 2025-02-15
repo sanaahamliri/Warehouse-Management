@@ -1,4 +1,5 @@
 import { fetchProducts, addProduct } from '../services/productService';
+// import { describe, it, expect } from '@jest/globals';
 
 describe('ProductService', () => {
   it('should fetch products successfully', async () => {
