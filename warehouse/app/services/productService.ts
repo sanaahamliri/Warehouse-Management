@@ -69,3 +69,22 @@ export const exportProductReport = async (product: Product) => {
   `;
   await Print.printAsync({ html });
 };
+
+export const fetchStockStatistics = async () => {
+  const products = await fetchProducts();
+  const totalProducts = products.length;
+  const cities = new Set(products.flatMap((product: Product) => product.stocks.map(stock => stock.city)));
+  const totalCities = cities.size;
+  const outOfStockProducts = products.filter((product: Product) => product.stocks.every((stock: Stock) => stock.quantity === 0)).length;
+  const totalStockValue = products.reduce((total: number, product: Product) => {
+    const productStockValue = product.stocks.reduce((sum: number, stock: Stock) => sum + (stock.quantity * product.price), 0);
+    return total + productStockValue;
+  }, 0);
+
+  return {
+    totalProducts,
+    totalCities,
+    outOfStockProducts,
+    totalStockValue,
+  };
+};

@@ -39,6 +39,44 @@
       ]
     },
     {
+      "id": "1",
+      "name": "Laptop HP Pavilion",
+      "type": "Informatique",
+      "barcode": "1234567890123",
+      "price": 1200,
+      "solde": 1100,
+      "supplier": "HP",
+      "image": "https://mediazone.ma/uploads/images/products/16412/landing-page/assets/images/swiper-1.png",
+      "stocks": [
+        {
+          "id": 1999,
+          "name": "Gueliz B2",
+          "quantity": 16,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 31.628674,
+            "longitude": -7.992047
+          }
+        },
+        {
+          "id": 2991,
+          "name": "Lazari H2",
+          "quantity": 9,
+          "localisation": {
+            "city": "Oujda",
+            "latitude": 34.689404,
+            "longitude": -1.912823
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": 1333,
+          "at": "2025-02-02"
+        }
+      ]
+    },
+    {
       "id": "2",
       "name": "Clavier Mécanique Logitech",
       "type": "Accessoires",
@@ -60,7 +98,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 8,
+          "quantity": 19,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -74,116 +112,6 @@
           "at": "2025-02-02"
         }
       ]
-    },
-    {
-      "id": "1d0e",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "5063",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "8b86",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "6464",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "57d2",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "a12e",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "0802",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "0163",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "47c7",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "942a",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
-    },
-    {
-      "id": "20fd",
-      "name": "New Product",
-      "type": "Type A",
-      "barcode": "123456",
-      "price": 100,
-      "supplier": "Supplier A",
-      "image": "image_url",
-      "stocks": []
     }
   ],
   "warehousemans": [
