@@ -6,6 +6,7 @@ import { useRouter } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { MotiView } from "moti"
 import ProductFormScreen from "../(products)/product-form"
+import { updateStock } from '../services/productService'
 
 type Stock = {
   id: number
@@ -151,6 +152,24 @@ export default function ProductListScreen() {
     ),
     [router, getTotalStock],
   )
+
+  const handleUpdateStock = async (productId: string, stockId: number, quantity: number) => {
+    try {
+      const updatedProduct = await updateStock(productId, stockId, quantity);
+      setProducts((prevProducts) => 
+        prevProducts.map(product => 
+          product.id === Number(productId) ? updatedProduct : product
+        )
+      );
+      setFilteredProducts((prevFiltered) => 
+        prevFiltered.map(product => 
+          product.id === Number(productId) ? updatedProduct : product
+        )
+      );
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du stock :", error);
+    }
+  }
 
   if (loading) {
     return <ActivityIndicator size="large" color="#6200ee" style={styles.loader} />
@@ -360,4 +379,3 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
 })
-
