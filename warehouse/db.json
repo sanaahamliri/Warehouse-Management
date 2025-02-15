@@ -13,7 +13,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 21,
+          "quantity": 20,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -23,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 24,
+          "quantity": 10,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -223,6 +223,85 @@
           "city": "Safi",
           "latitude": "kgxtw",
           "longitude": "jfwggwkgx"
+        }
+      ]
+    },
+    {
+      "id": "20e9",
+      "name": "bfwkgwk",
+      "type": "hFwgj",
+      "supplier": "jewrjwk",
+      "price": 847,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/2F49D2CF-C106-454B-B153-E3CE58939188.jpg",
+      "barcode": "123579hjxvbb",
+      "stocks": [
+        {
+          "name": "stock 1",
+          "quantity": "12",
+          "city": "Kesh",
+          "latitude": "gjvc",
+          "longitude": "vvkh"
+        },
+        {
+          "name": "stock2",
+          "quantity": "199",
+          "city": "Safi",
+          "latitude": "gjf",
+          "longitude": "cjgh"
+        }
+      ]
+    },
+    {
+      "id": "b44b",
+      "name": "fc ",
+      "type": "fwfx",
+      "supplier": "fwe",
+      "price": 80,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/735E43F6-1CE9-4337-B04E-148D5F7D02FB.jpg",
+      "barcode": "65833254",
+      "stocks": [
+        {
+          "name": "tt",
+          "quantity": "25",
+          "city": "Rabat",
+          "latitude": "ggf",
+          "longitude": "vhc"
+        }
+      ]
+    },
+    {
+      "id": "2aa4",
+      "name": "fc ",
+      "type": "fwfx",
+      "supplier": "fwe",
+      "price": 80,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/735E43F6-1CE9-4337-B04E-148D5F7D02FB.jpg",
+      "barcode": "65833254",
+      "stocks": [
+        {
+          "name": "tt",
+          "quantity": "25",
+          "city": "Rabat",
+          "latitude": "ggf",
+          "longitude": "vhc"
+        }
+      ]
+    },
+    {
+      "id": "1246",
+      "name": "fc ",
+      "type": "fwfx",
+      "supplier": "fwe",
+      "price": 80,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/735E43F6-1CE9-4337-B04E-148D5F7D02FB.jpg",
+      "barcode": "65833254",
+      "stocks": [
+        {
+          "name": "tt",
+          "quantity": "25",
+          "city": "Rabat",
+          "latitude": "ggf",
+          "longitude": "vhc"
         }
       ]
     }
