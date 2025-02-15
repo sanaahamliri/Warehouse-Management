@@ -5,6 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ImageBackgr
 import { useRouter } from "expo-router"
 import { useFonts } from "expo-font"
 import { Lock } from "lucide-react-native"
+import { AuthService } from "../services/AuthService"
 
 export default function LoginScreen() {
   const [secretKey, setSecretKey] = useState("")
@@ -32,15 +33,7 @@ export default function LoginScreen() {
     }
 
     try {
-      const response = await fetch("http://192.168.9.108:3001/warehousemans",
-      {
-      method:'GET',
-      headers: { "Content-Type": "application/json" }
-      })
-      console.log(response);
-      const warehousemans: { secretKey: string; name: string }[] = await response.json()
-
-      const user = warehousemans.find((w: { secretKey: string; name: string }) => w.secretKey === secretKey)
+      const user = await AuthService.login(secretKey)
       if (user) {
         Alert.alert("Succès", `Bienvenue, ${user.name} !`, [{ text: "OK", onPress: () => router.push("/statistics") }])
       } else {
