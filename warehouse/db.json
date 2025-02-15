@@ -13,7 +13,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 21,
+          "quantity": 15,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -23,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 24,
+          "quantity": 20,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -187,6 +187,42 @@
           "city": "Kesh",
           "latitude": "gajah",
           "longitude": "fqjqv"
+        }
+      ]
+    },
+    {
+      "id": "b034",
+      "name": "jfwkgwkg",
+      "type": "jrurwitw",
+      "supplier": "ktwktwgkw",
+      "price": null,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/F1A9B126-9CA9-44B6-83DF-B6197E8C8D66.jpg",
+      "barcode": "jfwkgwkgwktwgkw",
+      "stocks": [
+        {
+          "name": "jfwtw",
+          "quantity": "3567",
+          "city": "Safi",
+          "latitude": "kgxtw",
+          "longitude": "jfwggwkgx"
+        }
+      ]
+    },
+    {
+      "id": "ac0b",
+      "name": "jfwkgwkg",
+      "type": "jrurwitw",
+      "supplier": "ktwktwgkw",
+      "price": null,
+      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/F1A9B126-9CA9-44B6-83DF-B6197E8C8D66.jpg",
+      "barcode": "jfwkgwkgwktwgkw",
+      "stocks": [
+        {
+          "name": "jfwtw",
+          "quantity": "3567",
+          "city": "Safi",
+          "latitude": "kgxtw",
+          "longitude": "jfwggwkgx"
         }
       ]
     }

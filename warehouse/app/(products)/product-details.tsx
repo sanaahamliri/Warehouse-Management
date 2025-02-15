@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { View, Text, ActivityIndicator, StyleSheet, Image, ScrollView } from "react-native"
+import { View, Text, ActivityIndicator, StyleSheet, Image, ScrollView, Button } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
-import { fetchProductById } from '../services/productService'
+import { fetchProductById, updateStock, exportProductReport } from '../services/productService'
 
 type Stock = {
   id: number
@@ -62,6 +62,48 @@ export default function ProductDetailsScreen() {
     return product.stocks.reduce((total, stock) => total + stock.quantity, 0);
   }
 
+  const handleRestock = async (stockId: number) => {
+    setProduct(prevProduct => {
+      if (!prevProduct) return null;
+
+      updateStock(id as string, stockId, 1);
+      return {
+        ...prevProduct,
+        stocks: prevProduct.stocks.map(stock => 
+          stock.id === stockId ? { ...stock, quantity: stock.quantity + 1 } : stock
+        )
+      };
+    });
+  }
+
+  const handleUnload = async (stockId: number) => {
+    setProduct(prevProduct => {
+      if (!prevProduct) return null;
+
+      updateStock(id as string, stockId, -1);
+      return {
+        ...prevProduct,
+        stocks: prevProduct.stocks.map(stock => 
+          stock.id === stockId ? { ...stock, quantity: Math.max(stock.quantity - 1, 0) } : stock
+        )
+      };
+    });
+  }
+
+  const handleExportReport = async () => {
+    if (product) {
+      console.log("Exporting report for product:", product);
+      try {
+        await exportProductReport(product);
+        console.log("Report exported successfully.");
+      } catch (error) {
+        console.error("Error exporting report:", error);
+      }
+    } else {
+      console.warn("No product available for export.");
+    }
+  }
+
   return (
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.image }} style={styles.image} />
@@ -69,7 +111,7 @@ export default function ProductDetailsScreen() {
         <Text style={styles.title}>{product.name}</Text>
         <Text style={styles.type}>{product.type}</Text>
         <View style={styles.priceContainer}>
-          <Text style={styles.price}>{product.price.toLocaleString()} MAD</Text>
+          <Text style={styles.price}>{product.price?.toLocaleString() || 'N/A'} MAD</Text>
           {product.solde && <Text style={styles.solde}>{product.solde.toLocaleString()} MAD</Text>}
         </View>
         <View style={styles.detailRow}>
@@ -93,11 +135,22 @@ export default function ProductDetailsScreen() {
               <Text style={styles.stockCity}>Ville: {stock.city}</Text>
               <Text style={styles.stockLatitude}>Latitude: {stock.latitude}</Text>
               <Text style={styles.stockLongitude}>Longitude: {stock.longitude}</Text>
+              <Text style={[
+                styles.stockStatus,
+                stock.quantity === 0 ? styles.outOfStock : stock.quantity < 10 ? styles.lowStock : {}
+              ]}>
+                {stock.quantity === 0 ? "Rupture de stock" : stock.quantity < 10 ? "Faible quantité" : "En stock"}
+              </Text>
+              <View style={styles.buttonContainer}>
+                <Button title="Réapprovisionner" onPress={() => handleRestock(stock.id)} />
+                <Button title="Décharger" onPress={() => handleUnload(stock.id)} />
+              </View>
             </View>
           ))
         ) : (
           <Text style={styles.errorText}>Aucun stock disponible.</Text>
         )}
+        <Button title="Exporter le rapport PDF" onPress={handleExportReport} />
       </View>
     </ScrollView>
   )
@@ -203,6 +256,21 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
     marginTop: 20,
+  },
+  stockStatus: {
+    fontSize: 14,
+    marginTop: 5,
+  },
+  outOfStock: {
+    color: "red",
+  },
+  lowStock: {
+    color: "yellow",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
   },
 })
 
