@@ -13,7 +13,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 15,
+          "quantity": 16,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -23,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 20,
+          "quantity": 9,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -50,7 +50,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 20,
+          "quantity": 19,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -60,7 +60,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 5,
+          "quantity": 8,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -76,155 +76,114 @@
       ]
     },
     {
-      "id": "3",
-      "name": "Pc Gamer Omen By HP",
-      "type": "Informatique",
-      "barcode": "1236543210987",
-      "price": 11000,
-      "supplier": "HP",
-      "image": "https://technoplace.ma/11482-large_default/hp-omen-17-i7-7700hq-173-16gb-2tb-geforce-gtx-10.jpg",
-      "stocks": [],
-      "editedBy": [
-        {
-          "warehousemanId": 1444,
-          "at": "2025-02-02"
-        }
-      ]
-    },
-    {
-      "id": "4579",
-      "name": "pc lenovo",
-      "type": "informatiques",
-      "supplier": "sanaa",
-      "initialQuantity": 10,
-      "warehouse": "entrepot",
-      "price": 1000010000,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/76CE2210-A8CC-40A9-8467-DAEFB9BB5B8C.png"
-    },
-    {
-      "id": "11b7",
-      "name": "test",
-      "type": "testtt",
-      "supplier": "testttt",
-      "initialQuantity": 15,
-      "warehouse": "testtt",
+      "id": "1d0e",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
       "price": 100,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/1642D2F4-A77F-4222-B853-AFC0D7AE2304.jpg"
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "c232",
-      "name": "hm",
-      "type": "jfhch",
-      "supplier": "jgwgwkgw",
-      "initialQuantity": 62462,
-      "warehouse": "ktdktd",
-      "price": 654624,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/10735034-085B-42ED-BB58-797C9EABB004.jpg"
+      "id": "5063",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "1776",
-      "name": "oo",
-      "type": "uvhv",
-      "supplier": "chchchc",
-      "initialQuantity": 63,
-      "warehouse": "autre stack ",
-      "price": 2858,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/96BC8347-8BA7-4ECE-A059-F8C33BF2E70D.jpg"
+      "id": "8b86",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "648a",
-      "name": "g igcih",
-      "type": "hf uf ",
-      "supplier": "ur f jf",
-      "initialQuantity": 8,
-      "warehouse": "hdxg, itcxh, ohccochc",
-      "price": 577,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/80E32D5A-D231-4C6D-A451-3A7B0A15B8C7.jpg",
-      "stocks": [
-        {
-          "quantity": 8,
-          "warehouse": "hdxg, itcxh, ohccochc"
-        }
-      ]
+      "id": "6464",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "9926",
-      "name": "jfzjtd",
-      "type": "hdzjfzjt",
-      "supplier": "hfzjfzfjz",
-      "price": 85724,
-      "barcode": "hdzrzjztjt",
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/A0D26E95-B0A0-40E7-B3CF-1985E4CA3CF2.jpg",
-      "stocks": [
-        {
-          "name": "stock1",
-          "quantity": "25",
-          "city": "safi",
-          "latitude": "fjtxt",
-          "longitude": "ycucucuvhv"
-        }
-      ]
+      "id": "57d2",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "e507",
-      "name": "kg kg kgx",
-      "type": "kg ig",
-      "supplier": "xxgxgxg",
-      "price": 828585,
-      "image": null,
-      "barcode": "https://ain-saiss.ma/accueil",
-      "stocks": [
-        {
-          "name": "stock 1",
-          "quantity": "58",
-          "city": "safi",
-          "latitude": "6346",
-          "longitude": "1614"
-        },
-        {
-          "name": "stock 2",
-          "quantity": "12",
-          "city": "Kesh",
-          "latitude": "gajah",
-          "longitude": "fqjqv"
-        }
-      ]
+      "id": "a12e",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "b034",
-      "name": "jfwkgwkg",
-      "type": "jrurwitw",
-      "supplier": "ktwktwgkw",
-      "price": null,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/F1A9B126-9CA9-44B6-83DF-B6197E8C8D66.jpg",
-      "barcode": "jfwkgwkgwktwgkw",
-      "stocks": [
-        {
-          "name": "jfwtw",
-          "quantity": "3567",
-          "city": "Safi",
-          "latitude": "kgxtw",
-          "longitude": "jfwggwkgx"
-        }
-      ]
+      "id": "0802",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     },
     {
-      "id": "ac0b",
-      "name": "jfwkgwkg",
-      "type": "jrurwitw",
-      "supplier": "ktwktwgkw",
-      "price": null,
-      "image": "file:///var/mobile/Containers/Data/Application/0B621B58-F09E-46AA-9774-BFE0432501D8/Library/Caches/ExponentExperienceData/@anonymous/warehouse-38e8e398-a478-4078-915a-771fe200a82b/ImagePicker/F1A9B126-9CA9-44B6-83DF-B6197E8C8D66.jpg",
-      "barcode": "jfwkgwkgwktwgkw",
-      "stocks": [
-        {
-          "name": "jfwtw",
-          "quantity": "3567",
-          "city": "Safi",
-          "latitude": "kgxtw",
-          "longitude": "jfwggwkgx"
-        }
-      ]
+      "id": "0163",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
+    },
+    {
+      "id": "47c7",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
+    },
+    {
+      "id": "942a",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
+    },
+    {
+      "id": "20fd",
+      "name": "New Product",
+      "type": "Type A",
+      "barcode": "123456",
+      "price": 100,
+      "supplier": "Supplier A",
+      "image": "image_url",
+      "stocks": []
     }
   ],
   "warehousemans": [
