@@ -102,7 +102,6 @@ export default function ProductListScreen() {
         return matchesSearch
       })
 
-
       if (filterValue !== "all") {
         filtered = filtered.filter((product) => 
           product.type && product.type.toLowerCase() === filterValue.toLowerCase()

@@ -1,177 +1,112 @@
-"use client"
+import React from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { useEffect, useState } from 'react';
+import { fetchStockStatistics } from '../services/productService';
 
-import React, { useEffect, useState } from "react"
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView, RefreshControl } from "react-native"
-import { useRouter } from "expo-router"
-import { useFonts } from "expo-font"
-import { BarChart2, Package, AlertTriangle, ShoppingCart } from "lucide-react-native"
-
-type Stats = {
-  totalProducts: number
-  lowStock: number
-  outOfStock: number
-  recentlyAdded: number
+interface Statistics {
+  totalProducts: number;
+  totalCities: number;
+  outOfStockProducts: number;
+  totalStockValue: number;
 }
 
-type CardProps = {
-  title: string
-  value: number
-  color: string
-  icon: React.ReactNode
-}
-
-const Card: React.FC<CardProps> = ({ title, value, color, icon }) => (
-  <View style={[styles.card, { borderLeftColor: color }]}>
-    <View style={styles.cardIcon}>{icon}</View>
-    <View>
-      <Text style={styles.cardTitle}>{title}</Text>
-      <Text style={styles.cardValue}>{value}</Text>
-    </View>
-  </View>
-)
-
-export default function DashboardScreen() {
-  const [stats, setStats] = useState<Stats | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [refreshing, setRefreshing] = useState(false)
-  const router = useRouter()
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
-  })
-
-  const fetchStats = async () => {
-    try {
-      const res = await fetch("http://192.168.9.108/statistics")
-      if (!res.ok) {
-        throw new Error("Erreur réseau")
-      }
-      const data = await res.json()
-      setStats(data)
-      setError(null)
-    } catch (error) {
-      console.error("Erreur lors du chargement des statistiques :", error)
-      setError("Impossible de charger les statistiques. Veuillez réessayer.")
-    } finally {
-      setLoading(false)
-      setRefreshing(false)
-    }
-  }
+export default function App() {
+  const [statistics, setStatistics] = useState<Statistics | null>(null);
 
   useEffect(() => {
-    fetchStats()
-  }, [fetchStats])
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true)
-    fetchStats()
-  }, [fetchStats])
-
-  if (!fontsLoaded) {
-    return null
-  }
-
-  if (loading) {
-    return <ActivityIndicator size="large" color="#4c669f" style={styles.loader} />
-  }
+    const getStatistics = async () => {
+      const stats = await fetchStockStatistics();
+      setStatistics(stats);
+    };
+    getStatistics();
+  }, []);
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-    >
-      <Text style={styles.title}></Text>
-      {error ? (
-        <Text style={styles.errorText}>{error}</Text>
-      ) : (
-        <View style={styles.statsContainer}>
-          <Card
-            title="Total Produits"
-            value={stats?.totalProducts ?? 0}
-            color="#4c669f"
-            icon={<Package color="#4c669f" size={24} />}
-          />
-          <Card
-            title="Stock Faible"
-            value={stats?.lowStock ?? 0}
-            color="#ff9800"
-            icon={<AlertTriangle color="#ff9800" size={24} />}
-          />
-          <Card
-            title="Rupture"
-            value={stats?.outOfStock ?? 0}
-            color="#f44336"
-            icon={<BarChart2 color="#f44336" size={24} />}
-          />
-          <Card
-            title="Ajouts Récents"
-            value={stats?.recentlyAdded ?? 0}
-            color="#4caf50"
-            icon={<ShoppingCart color="#4caf50" size={24} />}
-          />
-        </View>
-      )}
-    </ScrollView>
-  )
+    <View style={styles.container}>
+      <View style={styles.card}>
+        {statistics ? (
+          <>
+            <Text style={styles.title}>Statistiques des stocks</Text>
+            <View style={styles.statItem}>
+              <Text style={styles.label}>Nombre total de produits:</Text>
+              <Text style={styles.value}>{statistics.totalProducts}</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.label}>Nombre total de villes:</Text>
+              <Text style={styles.value}>{statistics.totalCities}</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.label}>Produits en rupture de stock:</Text>
+              <Text style={styles.value}>{statistics.outOfStockProducts}</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.label}>Valeur totale des stocks:</Text>
+              <Text style={styles.value}>{statistics.totalStockValue} MAD</Text>
+            </View>
+          </>
+        ) : (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#0066cc" />
+            <Text style={styles.loadingText}>Chargement des statistiques...</Text>
+          </View>
+        )}
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  loader: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  title: {
-    fontFamily: "Poppins-Bold",
-    fontSize: 28,
-    textAlign: "center",
-    marginVertical: 20,
-    color: "#333",
-  },
-  statsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    padding: 20,
   },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 16,
-    width: "48%",
-    shadowColor: "#000",
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 20,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    borderLeftWidth: 4,
+    width: '100%',
+    maxWidth: 400,
   },
-  cardIcon: {
-    marginBottom: 12,
-  },
-  cardTitle: {
-    fontFamily: "Poppins-Regular",
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 4,
-  },
-  cardValue: {
-    fontFamily: "Poppins-Bold",
+  title: {
     fontSize: 24,
-    color: "#333",
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 20,
+    textAlign: 'center',
   },
-  errorText: {
-    fontFamily: "Poppins-Regular",
+  statItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  label: {
     fontSize: 16,
-    color: "#f44336",
-    textAlign: "center",
-    marginTop: 20,
+    color: '#666',
+    flex: 1,
   },
-})
-
+  value: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#0066cc',
+  },
+  loadingContainer: {
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#666',
+  },
+});
