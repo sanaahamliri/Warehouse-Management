@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { View, Text, ActivityIndicator, StyleSheet, Image, ScrollView, Button } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
-import { fetchProductById } from '../services/productService'
+import { fetchProductById, updateStock } from '../services/productService'
 
 type Stock = {
   id: number
@@ -62,10 +62,11 @@ export default function ProductDetailsScreen() {
     return product.stocks.reduce((total, stock) => total + stock.quantity, 0);
   }
 
-  const handleRestock = (stockId: number) => {
+  const handleRestock = async (stockId: number) => {
     setProduct(prevProduct => {
       if (!prevProduct) return null;
 
+      updateStock(id as string, stockId, 1);
       return {
         ...prevProduct,
         stocks: prevProduct.stocks.map(stock => 
@@ -75,10 +76,11 @@ export default function ProductDetailsScreen() {
     });
   }
 
-  const handleUnload = (stockId: number) => {
+  const handleUnload = async (stockId: number) => {
     setProduct(prevProduct => {
       if (!prevProduct) return null;
 
+      updateStock(id as string, stockId, -1);
       return {
         ...prevProduct,
         stocks: prevProduct.stocks.map(stock => 
