@@ -45,6 +45,8 @@ export default function LoginScreen() {
     }
   }
 
+  
+
   if (!fontsLoaded) {
     return null
   }
@@ -73,6 +75,9 @@ export default function LoginScreen() {
           <TouchableOpacity style={[styles.button, { backgroundColor: "#fff" }]} onPress={handleLogin}>
             <Text style={[styles.buttonText, { color: "#4c669f" }]}>Se connecter</Text>
           </TouchableOpacity>
+
+          
+
         </Animated.View>
       </View>
     </ImageBackground>
