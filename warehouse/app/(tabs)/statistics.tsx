@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useEffect, useState } from 'react';
-import { fetchStockStatistics } from '../services/productService';
+import { fetchProducts, fetchStockStatistics } from '../services/productService';
+import { useFocusEffect, useRouter } from "expo-router"
+
 
 interface Statistics {
   totalProducts: number;
@@ -20,6 +22,8 @@ export default function App() {
     };
     getStatistics();
   }, []);
+
+  
 
   return (
     <View style={styles.container}>
